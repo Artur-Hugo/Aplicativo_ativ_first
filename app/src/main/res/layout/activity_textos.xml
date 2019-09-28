@@ -1,0 +1,40 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="aaa_studios.prototipo1.textos">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/imageView"
+        android:background="@drawable/detalhe_empresa" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Texto aleatorio"
+        android:id="@+id/textView"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="38dp" />
+
+    <ScrollView
+        android:layout_width="300dp"
+        android:layout_height="350dp"
+        android:id="@+id/scrollView"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Têmpora é indicado também, para adultos e crianças, como tratamento adjuvante das crises associadas à Síndrome de Lennox-Gastaut. Têmpora é indicado, em adultos, como tratamento profilático da enxaqueca. O uso de topiramato para o tratamento agudo da enxaqueca não foi estudado.
+            Têmpora é indicado também, para adultos e crianças, como tratamento adjuvante das crises associadas à Síndrome de Lennox-Gastaut. Têmpora é indicado, em adultos, como tratamento profilático da enxaqueca. O uso de topiramato para o tratamento agudo da enxaqueca não foi estudado."
+            android:id="@+id/textView2" />
+    </ScrollView>
+</RelativeLayout>
