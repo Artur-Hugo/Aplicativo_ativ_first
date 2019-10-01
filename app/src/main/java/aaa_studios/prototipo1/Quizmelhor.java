@@ -11,6 +11,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 
@@ -37,6 +41,8 @@ Random r;
 
 
 
+
+
         botao01 = (Button) findViewById(R.id.altenativa1id);
         botao02 = (Button) findViewById(R.id.altenativa2id);
         botao03 = (Button) findViewById(R.id.altenativa3id);
@@ -44,22 +50,31 @@ Random r;
         pergunta = (TextView) findViewById(R.id.pergunta1);
         pontos = (TextView) findViewById(R.id.Pontosid);
 
-        pontos.setText("Pontos: "+scores);
-
-        updatepergunta(r.nextInt(questionlength));
+        pontos.setText("Pontos: " + scores);
 
 
-        botao01.setOnClickListener(new View.OnClickListener() {
+
+
+        final List<Integer> lista = Arrays.asList(0,1, 2, 3, 4);
+        Collections.shuffle(lista);
+
+
+        updatepergunta(lista.get(0));
+
+
+
+    botao01.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              if(botao01.getText() == resposta){
-                  scores ++;
-                  pontos.setText("Pontos: "+scores);
-                  updatepergunta(r.nextInt(questionlength));
-              }
-                else{
-                  game_over();
-              }
+                if (botao01.getText() == resposta) {
+                    scores++;
+                    pontos.setText("Pontos: " + scores);
+                    updatepergunta(lista.get(scores));
+
+
+                } else {
+                    game_over();
+                }
             }
         });
 
@@ -68,8 +83,8 @@ Random r;
             public void onClick(View v) {
                 if(botao02.getText() == resposta){
                     scores ++;
-                    pontos.setText("Pontos: "+scores);
-                    updatepergunta(r.nextInt(questionlength));
+                    pontos.setText("Pontos: " + scores);
+                    updatepergunta(lista.get(scores));
                 }
                 else{
                     game_over();
@@ -81,8 +96,8 @@ Random r;
             public void onClick(View v) {
                 if(botao03.getText() == resposta){
                     scores ++;
-                    pontos.setText("Pontos: "+scores);
-                    updatepergunta(r.nextInt(questionlength));
+                    pontos.setText("Pontos: " + scores);
+                    updatepergunta(lista.get(scores));
                 }
                 else{
                     game_over();
@@ -95,17 +110,19 @@ Random r;
                 if(botao04.getText() == resposta){
                     scores ++;
                     pontos.setText("Pontos: "+scores);
-                    updatepergunta(r.nextInt(questionlength));
+                    updatepergunta(lista.get(scores));
                 }
                 else{
                     game_over();
                 }
             }
-        });
+        });}
 
 
-    }
+
     private void updatepergunta(int num){
+
+
      pergunta.setText(aquestion.getpergunta(num));
      botao01.setText(aquestion.escolha1(num));
         botao02.setText(aquestion.escolha2(num));
@@ -119,7 +136,7 @@ Random r;
     public void game_over(){
         AlertDialog.Builder alertdialogbuilder = new AlertDialog.Builder(Quizmelhor.this);
         alertdialogbuilder
-                .setMessage("ERROUU!!! seu ponto é "+ scores + " Pontos")
+                .setMessage("ERROUU!!! seu ponto Ã© "+ scores + " Pontos")
         .setCancelable(false)
         .setPositiveButton("Novo jogo",
                 new DialogInterface.OnClickListener() {
@@ -132,7 +149,7 @@ Random r;
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             }
                         });
 AlertDialog alertDialog = alertdialogbuilder.create();
@@ -140,11 +157,40 @@ AlertDialog alertDialog = alertdialogbuilder.create();
 
 
     }
+    public int selecionado(){
+       /* int cont = 0;
+        List<Integer> lista = new ArrayList();
+        List<Integer> lis = new ArrayList();
+        int tam = r.nextInt(aquestion.iPerguntas.length);
+        while( cont < 5) {
+
+             tam = r.nextInt(aquestion.iPerguntas.length);
+            lis.add(tam);
+
+            if(!lista.contains(tam)) {
+                cont ++;
+                lista.add(tam);
+                }
+
+            else{
+                continue;
+            }
+
+
+        }*/
+        /*List<Integer> lista = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8);
+        Collections.shuffle(lista);
+        System.out.println(lista.get(2));
+
+
+        return lista.get();*/
+        return 4;
+    }
 
     public class question{
 
         String iPerguntas[] ={
-            "Qual é o maior?","Quem é o menor?","O que é mais letal?","O que faz cosegas?","O primeiro planeta é?"
+            "Qual Ã© o maior?","Quem Ã© o menor?","O que Ã© mais letal?","O que faz cosegas?","O primeiro planeta Ã©?"
         };
 
     private String iescolhas[][]={
@@ -161,6 +207,7 @@ AlertDialog alertDialog = alertdialogbuilder.create();
      String getpergunta(int a){
 
        String pergunta = iPerguntas[a];
+
      return pergunta;
      }
  String escolha1(int a){
@@ -183,6 +230,14 @@ AlertDialog alertDialog = alertdialogbuilder.create();
             String correta = acerto[a];
             return correta;
         }
+
+
+
     }
-}
+
+
+    }
+
+
+
 
