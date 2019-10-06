@@ -22,13 +22,16 @@ public class Quizmelhor extends Activity {
 
     private question aquestion = new question();
     private String resposta;
-    private int scores = 0;
+    private int scores = 0,contador = 0;
     private int questionlength = aquestion.iPerguntas.length;
+
 
 Random r;
 
     private Button botao01,botao02,botao03,botao04;
-    private TextView pergunta, pontos;
+    private TextView pergunta, pontos, quantquestao;
+    final List<Integer> lista = Arrays.asList(0,1, 2, 3, 4,5,6,7,8);
+
 
 
 
@@ -49,14 +52,16 @@ Random r;
         botao04 = (Button) findViewById(R.id.altenativa4id);
         pergunta = (TextView) findViewById(R.id.pergunta1);
         pontos = (TextView) findViewById(R.id.Pontosid);
+        quantquestao = (TextView) findViewById(R.id.quantquestoesid);
 
         pontos.setText("Pontos: " + scores);
+        quantquestao.setText("9/" + contador);
 
-
-
-
-        final List<Integer> lista = Arrays.asList(0,1, 2, 3, 4);
         Collections.shuffle(lista);
+
+
+
+
 
 
         updatepergunta(lista.get(0));
@@ -68,12 +73,16 @@ Random r;
             public void onClick(View v) {
                 if (botao01.getText() == resposta) {
                     scores++;
+                    contador++;
                     pontos.setText("Pontos: " + scores);
-                    updatepergunta(lista.get(scores));
+                    quantquestao.setText("9/" + contador);
+                    game_acerto();
 
 
                 } else {
-                    game_over();
+                    contador++;
+                    quantquestao.setText("9/" + contador);
+                    game_erro();
                 }
             }
         });
@@ -83,11 +92,16 @@ Random r;
             public void onClick(View v) {
                 if(botao02.getText() == resposta){
                     scores ++;
+                    contador++;
                     pontos.setText("Pontos: " + scores);
-                    updatepergunta(lista.get(scores));
-                }
-                else{
-                    game_over();
+                    quantquestao.setText("9/" + contador);
+                    game_acerto();
+
+
+                } else {
+                    contador++;
+                    quantquestao.setText("9/" + contador);
+                    game_erro();
                 }
             }
         });
@@ -96,11 +110,16 @@ Random r;
             public void onClick(View v) {
                 if(botao03.getText() == resposta){
                     scores ++;
+                    contador++;
                     pontos.setText("Pontos: " + scores);
-                    updatepergunta(lista.get(scores));
-                }
-                else{
-                    game_over();
+                    quantquestao.setText("9/" + contador);
+                    game_acerto();
+
+
+                } else {
+                    contador++;
+                    quantquestao.setText("9/" + contador);
+                    game_erro();
                 }
             }
         });
@@ -109,11 +128,16 @@ Random r;
             public void onClick(View v) {
                 if(botao04.getText() == resposta){
                     scores ++;
-                    pontos.setText("Pontos: "+scores);
-                    updatepergunta(lista.get(scores));
-                }
-                else{
-                    game_over();
+                    contador++;
+                    pontos.setText("Pontos: " + scores);
+                    quantquestao.setText("9/" + contador);
+                    game_acerto();
+
+
+                } else {
+                    contador++;
+                    quantquestao.setText("9/" + contador);
+                    game_erro();
                 }
             }
         });}
@@ -136,7 +160,7 @@ Random r;
     public void game_over(){
         AlertDialog.Builder alertdialogbuilder = new AlertDialog.Builder(Quizmelhor.this);
         alertdialogbuilder
-                .setMessage("ERROUU!!! seu ponto é "+ scores + " Pontos")
+                .setMessage("Sua pontuação é "+ scores + " Pontos")
         .setCancelable(false)
         .setPositiveButton("Novo jogo",
                 new DialogInterface.OnClickListener() {
@@ -156,7 +180,42 @@ AlertDialog alertDialog = alertdialogbuilder.create();
         alertDialog.show();
 
 
+
     }
+    public void game_acerto(){
+AlertDialog.Builder alertdialogbuilder = new AlertDialog.Builder(Quizmelhor.this);
+        alertdialogbuilder.setMessage("Certa resposta -" + resposta);
+        alertdialogbuilder.setTitle("Correto");
+        alertdialogbuilder.setCancelable(false);
+        alertdialogbuilder.setPositiveButton("Continuar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(contador == 9){game_over();}
+                else{
+                updatepergunta(lista.get(contador));
+            }
+            }
+        });
+AlertDialog alertdialog = alertdialogbuilder.create();
+        alertdialog.show();
+    }
+    public void game_erro(){
+        AlertDialog.Builder alertdialogbuilder = new AlertDialog.Builder(Quizmelhor.this);
+        alertdialogbuilder.setMessage("resposta errada");
+        alertdialogbuilder.setCancelable(false);
+        alertdialogbuilder.setPositiveButton("Continuar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(contador == 9){game_over();}
+                else{
+                    updatepergunta(lista.get(contador));
+                }
+            }
+        });
+        AlertDialog alertdialog = alertdialogbuilder.create();
+        alertdialog.show();
+    }
+
     public int selecionado(){
        /* int cont = 0;
         List<Integer> lista = new ArrayList();
@@ -190,19 +249,23 @@ AlertDialog alertDialog = alertdialogbuilder.create();
     public class question{
 
         String iPerguntas[] ={
-            "Qual é o maior?","Quem é o menor?","O que é mais letal?","O que faz cosegas?","O primeiro planeta é?"
-        };
+            "O que é uma corretora de investimentos?","O que é Renda Fixa?","O que é Renda variável?","O que é Tesouro Direto?","O que é Taxa Selic?",
+        "O que é CDB?","O que é LCI e LCA?","O que é debêntures?","O que são ações?"};
 
     private String iescolhas[][]={
-            {"Cavalo","Baleia","Elefante","Monte Everest"},
-            {"nano","micho","picho","pikachu"},
-            {"Faca","Ak47","HarryPotter","WillyWonka"},
-            {"Pena","Gordo","Obeso","mordida na orelha"},
-            {"Thanos","Mercurio","Sua mae","gordo em obito"}
+            {"Certa","Errada","Errada","Errada"},
+            {"Sim","Errada","Errada","Errada"},
+            {"Errada","Errada","certo","WillyWonka"},
+            {"Pena","Gordo","Obeso","correta"},
+            {"Thanos","essa","Sua mae","gordo em obito"},
+            {"Certinho","Errada","Errada","Errada"},
+            {"Certinha","Errada","Errada","Errada"},
+            {"aCerto","Errada","Errada","Errada"},
+            {"que essa Certa","Errada","Errada","Errada"},
 
 
     };
-        private String acerto[] = {"Monte Everest","nano","Ak47","Pena","Mercurio"};
+        private String acerto[] = {"Certa","Sim","certo","correta","essa","Certinho","Certinha","aCerto","que essa Certa"};
 
      String getpergunta(int a){
 
